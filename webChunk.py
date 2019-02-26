@@ -1,8 +1,21 @@
 import sys
 import re
 
+def listToStr(inputList):
+	resultStr = ""
+	for i in range(len(inputList)):
+		if(i!=0):
+			resultStr +="/"+ inputList[i]
+		else:
+			resultStr += inputList[i]
+	return resultStr
+
 fin = open(sys.argv[1],'r')
 fout = open(sys.argv[2],'w')
+
+# get url from first line
+url = fin.readline()
+print(url)
 
 data = fin.read()
 
@@ -38,25 +51,19 @@ reText = re.compile("(?:[^<]+|<>)+")
 pos = 0
 chunkList = []
 
-fout.write(data)
 
 while (pos<len(data)):
-	print("entered while")
 	chunkTag = reTag.match(data[pos:len(data)])
 	chunkText = reText.match(data[pos:len(data)])
 
 	# if start with tag
 	if(chunkTag):
-		print("chunkTag detected")
 		chunk = chunkTag.group()
-		print(chunk)
 		pos_add = chunkTag.end()
 		pos = pos+pos_add
 	# if start with text
 	elif(chunkText):
-		print("chunkText detected")
 		chunk = chunkText.group()
-		print(chunk)
 		pos_add = chunkText.end()
 		pos = pos+pos_add
 	else:
@@ -65,4 +72,7 @@ while (pos<len(data)):
 		)
 		exit()
 	chunkList.append(chunk)
-print(chunkList)
+print("chunk len:")
+print(len(chunkList))
+fout.write(listToStr(chunkList))
+
