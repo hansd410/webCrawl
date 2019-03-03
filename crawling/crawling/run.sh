@@ -1,1 +1,12 @@
-scrapy crawl webMT -a dir="/mnt/data/hansd410/crawled" -a folder="googleCloud" -a allowed="cloud.google.com" -a url="http://cloud.google.com" -a depth=5
+scrapy crawl webMT -a dir="/mnt/data/hansd410/crawled" -a depth=5 -a folder="aws" -a allowed="aws.amazon.com" -a url_ko="https://aws.amazon.com/ko/?nc1=f_ls" -a url_en="https://aws.amazon.com/?nc1=h_ls"
+scrapy crawl webMT -a dir="/mnt/data/hansd410/crawled" -a depth=5 -a folder="azure" -a allowed="azure.microsoft.com" -a url_ko="https://azure.microsoft.com/ko-kr/" -a url_en="https://azure.microsoft.com/en-us/"
+scrapy crawl webMT -a dir="/mnt/data/hansd410/crawled" -a depth=5 -a folder="googleCloud" -a allowed="cloud.google.com" -a url_ko="https://cloud.google.com/?hl=ko" -a url_en="https://cloud.google.com/"
+scrapy crawl webMT -a dir="/mnt/data/hansd410/crawled" -a depth=5 -a folder="twitterHelp" -a allowed="help.twitter.com" -a url_ko="https://help.twitter.com/ko" -a url_en="https://help.twitter.com/en"
+scrapy crawl webMT -a dir="/mnt/data/hansd410/crawled" -a depth=5 -a folder="oneDrive" -a allowed="onedrive.live.com" -a url_ko="https://onedrive.live.com/about/ko-kr/" -a url_en="https://onedrive.live.com/about/en-us/"
+scrapy crawl webMT -a dir="/mnt/data/hansd410/crawled" -a depth=5 -a folder="booking" -a allowed="secure.booking.com" -a url_ko="https://secure.booking.com/content/cs.ko.html" -a url_en="https://secure.booking.com/content/cs.en.html"
+scrapy crawl webMT -a dir="/mnt/data/hansd410/crawled" -a depth=5 -a folder="googleSupport" -a allowed="support.google.com" -a url_ko="https://support.google.com/?hl=ko" -a url_en="https://support.google.com/"
+scrapy crawl webMT -a dir="/mnt/data/hansd410/crawled" -a depth=5 -a folder="msSupport" -a allowed="support.microsoft.com" -a url_ko="https://support.microsoft.com/ko-kr" -a url_en="https://support.microsoft.com/en-us"
+scrapy crawl webMT -a dir="/mnt/data/hansd410/crawled" -a depth=5 -a folder="airbnbSupport" -a allowed="www.airbnb.com" -a url_ko="https://www.airbnb.com/help?locale=ko" -a url_en="https://www.airbnb.com/help?locale=en"
+scrapy crawl webMT -a dir="/mnt/data/hansd410/crawled" -a depth=5 -a folder="microsoft" -a allowed="www.microsoft.com" -a url_ko="https://www.microsoft.com/ko-kr/" -a url_en="https://www.microsoft.com/en-us/"
+scrapy crawl webMT -a dir="/mnt/data/hansd410/crawled" -a depth=5 -a folder="oracle" -a allowed="www.oracle.com" -a url_ko="https://www.oracle.com/kr/index.html" -a url_en="https://www.oracle.com/en/index.html"
+scrapy crawl webMT -a dir="/mnt/data/hansd410/crawled" -a depth=5 -a folder="tripadvisorSupport" -a allowed="www.tripadvisorsupport.com" -a url_ko="https://www.tripadvisorsupport.com/hc/ko-ko" -a url_en="https://www.tripadvisorsupport.com/hc/en-us"
