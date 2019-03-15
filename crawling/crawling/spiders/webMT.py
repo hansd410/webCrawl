@@ -32,6 +32,7 @@ class GooglecloudSpider(scrapy.Spider):
 		depth = 0
 		#yield scrapy.Request(url=start_urls[1],callback=self.parse_once,meta={'filename':fid+"_ko",'depth':depth})
 		yield scrapy.Request(url=start_urls[0],callback=self.parse,meta={'filename':fid,'depth':depth,'lang':'en'})
+		fid = str(uuid.uuid4())
 		depth = 0
 		yield scrapy.Request(url=start_urls[1],callback=self.parse,meta={'filename':fid,'depth':depth,'lang':'ko'})
 
@@ -44,12 +45,9 @@ class GooglecloudSpider(scrapy.Spider):
 		print (depth)
 		if (depth <=int(self.depth)):
 			flog = open(self.saveDir+"/log.txt",'a')
-			if(lang=='en'):
-				fout = open(self.saveDir+"/"+fid,'wb')
-				flog.write("en\t"+response.url+"\n")
-			else:
-				fout = open(self.saveDir+"/"+fid+"_ko",'wb')
-				flog.write("ko\t"+response.url+"\n")
+			fout = open(self.saveDir+"/"+fid,'wb')
+			flog.write(lang+"\t"+response.url+"\t"+fid+"\n")
+
 			fout.write(str.encode(response.url+"\n"))
 			fout.write(response.body)
 
