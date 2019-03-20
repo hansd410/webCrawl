@@ -10,7 +10,7 @@ def getAnchor(chunk):
 
 def tagNormalize(chunk):
 	reNormalize = re.compile("(?<=\\w)[^\\w>][^>]*")
-	if(chunk[0]!=None):
+	if(chunk[0]!="None"):
 		chunk=(reNormalize.sub('',chunk[0].lower().strip()), chunk[1])
 	return chunk
 
@@ -41,7 +41,12 @@ def alignmentCost(e,k):
 
 class ChunkAligner:
 
-	def align(self, enDocChunk, koDocChunk):
+	def align(self, enDocChunk, koDocChunk, alignFilter):
+		if(alignFilter == "True"):
+			print("Align filter applied")
+		else:
+			print("Align filter not applied")
+
 		flipped = False
 
 		# enDocChunk should longer
@@ -81,6 +86,7 @@ class ChunkAligner:
 			#diagJ = int(i*M/N)
 			#beamOffset = diagJ-MAX_DIST_OFF_DIAG
 			#beamStep = int(diagJ-((i-1)*M/N))
+			#print ("i is "+str(i)+" of "+str(N))
 
 			# align matrix
 			e = enDocChunk[i-1]
@@ -97,7 +103,7 @@ class ChunkAligner:
 					cell[1]=DEL
 					#wholeMatrix[i][j][0]=cell[0]
 					#wholeMatrix[i][j][1]=cell[1]
-					print("j is zero")
+					#print("j is zero")
 					j+=1
 					continue
 
@@ -154,23 +160,35 @@ class ChunkAligner:
 			enChunk = ''
 			koChunk = ''
 			if(cell[1]==INS):
-				enChunk = (None,None)
+				enChunk = ("None","None")
 			else:
 				enChunk = enDocChunk[i-1]
 			if(cell[1]==DEL):
-				koChunk = (None,None)
+				koChunk = ("None","None")
 			else:
 				koChunk = koDocChunk[j-1]
+			if(cell[1]!=INS):
+				i-=1
+			if(cell[1] != DEL):
+				j-=1
+		
+			# 0318 filter option added
+			chunkMaxLen=50
+			if(alignFilter == "True"):
+				if(koChunk[0] =="&reg;" or enChunk[0]=="&reg;"):
+					continue
+				if(koChunk[0] =="None" or enChunk[0]=="None"):
+					continue
+				if(koChunk[0]==enChunk[0]):
+					continue
+				if(len(koChunk[0])>chunkMaxLen or len(enChunk[0])>chunkMaxLen):
+					continue
 
 			if(flipped):
 				allPairs.append((koChunk,enChunk,tagNormalize(koChunk),tagNormalize(enChunk)))
 			else:
 				allPairs.append((enChunk,koChunk,tagNormalize(enChunk),tagNormalize(koChunk)))
 
-			if(cell[1]!=INS):
-				i-=1
-			if(cell[1] != DEL):
-				j-=1
 		#np.savetxt('matrix.txt',matrix[:,:,0],fmt='%.2e')
 		#np.savetxt('matrix_inst.txt',matrix[:,:,1],fmt='%.2e')
 		allPairs.reverse()

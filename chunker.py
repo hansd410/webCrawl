@@ -15,7 +15,7 @@ class HtmlChunker:
 		fin = open(inputFile,'r')
 
 		# get url from first line
-		#url = fin.readline()
+		url = fin.readline()
 		data = fin.read()
 
 		##################### PREPROCESS #####################
